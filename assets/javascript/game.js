@@ -17,22 +17,24 @@ var game = {
         // Create characters from data and display choices in #characterSelect zone
 
         for (let i=0; i<this.characters.length; ++i) {
-            this.createCharDiv(this.characters[i]);
+            $("#characterSelect").append(this.createCharDiv(this.characters[i]));
         }
 
     },
 
+    // Creates a new character card with passed object info using JQuery and returns it
     createCharDiv(charObj) {
         var newChar = $("<div>");
         newChar.addClass("charCard");
 
         newChar.append("<div>"+charObj.name+"</div>");
         newChar.append("<img src='assets/images/"+charObj.img+"' class='charCardImg'>");
-        $("#characterSelect").append(newChar);
-        $(newChar).on("click", function() {
+        newChar.on("click", function() {
             // PLACEHOLDER
             console.log("CLICKED");
         });
+
+        return newChar;
     }
 }
 
