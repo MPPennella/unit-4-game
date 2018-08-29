@@ -1,0 +1,10 @@
+/* Classes controlling character card display */
+.charCard {
+    float: left;
+
+    text-align: center;
+}
+
+.charCardImg {
+    width: 250px;
+}

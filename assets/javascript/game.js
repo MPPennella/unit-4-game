@@ -24,10 +24,13 @@ var game = {
 
     createCharDiv(charObj) {
         var newChar = $("<div>");
+        newChar.addClass("charCard");
+
         newChar.append("<div>"+charObj.name+"</div>");
-        newChar.append("<img src='assets/images/"+charObj.img+"' width='300px'>");
+        newChar.append("<img src='assets/images/"+charObj.img+"' class='charCardImg'>");
         $("#characterSelect").append(newChar);
         $(newChar).on("click", function() {
+            // PLACEHOLDER
             console.log("CLICKED");
         });
     }
