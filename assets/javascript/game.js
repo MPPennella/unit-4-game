@@ -55,11 +55,15 @@ var game = {
         newChar.append("<img src='assets/images/"+charObj.img+"' class='charCardImg'>");
         newChar.append("<div>A: "+charObj.atkPower+" C: "+charObj.counterPower+" HP: "+charObj.hp+"</div>")
         newChar.on("click", function() {
-            // PLACEHOLDER
-            console.log("CLICKED");
+            game.charClicked(this);
         });
 
         return newChar;
+    },
+
+    charClicked(char) {
+        let clicked = $(char);
+        $("#opponentSelect").append(clicked.siblings());
     }
 }
 
