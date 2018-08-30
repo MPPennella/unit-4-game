@@ -67,23 +67,33 @@ var game = {
         return newChar;
     },
 
+    // Handles clicks on character portraits
     charClicked(char) {
         let clicked = $(char);
             
         if (!this.pcharSelected) {
             // Select this character as the player character
-            $("#opponentSelect").append(clicked.siblings());
+            // TODO: write code to store info of selected character as player
             this.pcharSelected = true;
-        } else if(!this.oppSelected) {
-            // Select this character as the opponent
-            // BUG: Will allow selection of player character as opponent
 
-            // Pick as opponent
-            console.log("You picked:");
-            console.log(clicked);
-            this.oppSelected = true;
+            // Mark opponents and move to opponent select area
+            let opponents = clicked.siblings();
+            opponents.addClass("opponent");
+            $("#opponentSelect").append(opponents);
+            
+        } else if(!this.oppSelected) {
+            if ( clicked.hasClass("opponent") ) {
+                // Select this character as the opponent
+
+                // Pick as current opponent
+                // TODO: write code to store info of selected character as opponent
+                console.log("You picked:");
+                console.log(clicked);
+                this.oppSelected = true;
+            }
         }
     }
+
 }
 
 $(document).ready( function() {
