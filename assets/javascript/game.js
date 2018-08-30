@@ -29,6 +29,7 @@ var game = {
 
         newChar.append("<div>"+charObj.name+"</div>");
         newChar.append("<img src='assets/images/"+charObj.img+"' class='charCardImg'>");
+        newChar.append("<div>A: "+charObj.atkPower+" C: "+charObj.counterPower+" HP: "+charObj.hp+"</div>")
         newChar.on("click", function() {
             // PLACEHOLDER
             console.log("CLICKED");
