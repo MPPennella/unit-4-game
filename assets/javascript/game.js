@@ -50,6 +50,10 @@ var game = {
             $("#characterSelect").append(this.createCharDiv(this.characters[i]));
         }
 
+        // Attach listener to atkBtn
+        $("#atkBtn").on("click", function() {
+           game.attackClicked();
+        });
     },
 
     // Creates a new character card with passed object info using JQuery and returns it
@@ -86,14 +90,32 @@ var game = {
                 // Select this character as the opponent
 
                 // Pick as current opponent
+                $("#battleZone").append(clicked);
+
                 // TODO: write code to store info of selected character as opponent
                 console.log("You picked:");
                 console.log(clicked);
                 this.oppSelected = true;
             }
         }
-    }
+    },
 
+    attackClicked() {
+        if (this.oppSelected) {
+            console.log("Attack");
+
+            // Reduce character HP by opponent's counter value
+
+            // Reduce opponent HP by character's current attack value
+
+            // Increase character's current attack by base attack value
+
+            // if (playerHP == 0) DEFEAT
+
+            // if (opponentHP == 0) Win Match -> pick next opponent
+            // if (noOpponentsRemaining) Win Game}
+        }
+    }
 }
 
 $(document).ready( function() {
