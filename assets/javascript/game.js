@@ -9,6 +9,30 @@ var game = {
             atkPower: 20,
             counterPower: 20,
             hp: 100
+        },
+        {
+            id: 'palpatine',
+            name: 'Emperor Palpatine',
+            img: 'Emperor_Palpatine.jpg',
+            atkPower: 20,
+            counterPower: 20,
+            hp: 100
+        },
+        {
+            id: 'maul',
+            name: 'Darth Maul',
+            img: 'Darth_Maul.jpg',
+            atkPower: 20,
+            counterPower: 20,
+            hp: 100
+        },
+        {
+            id: 'revan',
+            name: 'Darth Revan',
+            img: 'Darth_Revan.jpg',
+            atkPower: 20,
+            counterPower: 20,
+            hp: 100
         }
     ],
 
