@@ -36,6 +36,12 @@ var game = {
         }
     ],
 
+    // Properties to control states
+
+    // Determines if player character and opponent character are selected
+    pcharSelected: false,
+    oppSelected: false,
+
     // Code executed at launch - sets up initial game state
     startGame() {
         // Create characters from data and display choices in #characterSelect zone
@@ -63,7 +69,20 @@ var game = {
 
     charClicked(char) {
         let clicked = $(char);
-        $("#opponentSelect").append(clicked.siblings());
+            
+        if (!this.pcharSelected) {
+            // Select this character as the player character
+            $("#opponentSelect").append(clicked.siblings());
+            this.pcharSelected = true;
+        } else if(!this.oppSelected) {
+            // Select this character as the opponent
+            // BUG: Will allow selection of player character as opponent
+
+            // Pick as opponent
+            console.log("You picked:");
+            console.log(clicked);
+            this.oppSelected = true;
+        }
     }
 }
 
