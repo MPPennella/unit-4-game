@@ -135,19 +135,35 @@ var game = {
     // Handles clicks on #atkBtn
     attackClicked() {
         if (this.state==="battleMode") {
-            console.log("Attack");
+            //ISSUE: Allows additional clicks to resolve even after WIN/LOSS
 
             // Reduce character HP by opponent's counter value
-
+            this.playerHP -= this.opponentCounterAtk;
             // Reduce opponent HP by character's current attack value
+            this.opponentHP -= this.playerCurrentAtk;
 
             // Write damage done to #combatLog
+            $("#combatLog").text("You attacked for "+this.playerCurrentAtk+" damage, "+"OPPONENT"+" attacked for "+this.opponentCounterAtk+" damage");
+
+            console.log("Damage dealt: "+this.playerCurrentAtk);
+
+            console.log("Player HP: "+this.playerHP);
+            console.log("Opponent HP: "+this.opponentHP);
 
             // Increase character's current attack by base attack value
+            this.playerCurrentAtk += this.playerBaseAtk;
 
             // if (playerHP == 0) DEFEAT
+            if (this.playerHP<=0) {
+                $("#combatLog").append("<div>You were defeated</div>");
+                console.log("DEFEAT");
+            }
+            // else if (opponentHP == 0) Win Match -> remove current opponent
+            else if (this.opponentHP<=0) {
+                $("#combatLog").append("<div>You defeated "+"OPPONENT"+"</div>");
+                console.log("OPPONENT DEFEATED");
+            }
 
-            // if (opponentHP == 0) Win Match -> remove current opponent
             // if (opponentsRemaining) pick next opponent
             // else WIN GAME
         }
