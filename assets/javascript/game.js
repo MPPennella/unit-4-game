@@ -40,9 +40,17 @@ var game = {
     // Possible values "charSelect", "oppSelect", "battleMode"
     state: "",
 
+    // Properties to store combat data
+    playerBaseAtk: null,
+    playerCurrentAtk: null,
+    playerHP: null,
+
+    opponentCounterAtk: null,
+    opponentHP: null,
+
     // Determines if player character and opponent character are selected
-    pcharSelected: false,
-    oppSelected: false,
+    // pcharSelected: false,
+    // oppSelected: false,
 
     // Code executed at launch - sets up initial game state
     startGame() {
@@ -66,7 +74,7 @@ var game = {
         var newChar = $("<div>");
         newChar.addClass("charCard");
 
-        newChar.append("<div>"+charObj.name+"</div>");
+        newChar.append("<div class='name' value='"+charObj.id+"'>"+charObj.name+"</div>");
         newChar.append("<img src='assets/images/"+charObj.img+"' class='charCardImg'>");
         newChar.append("<div>A: "+charObj.atkPower+" C: "+charObj.counterPower+" HP: "+charObj.hp+"</div>")
         newChar.on("click", function() {
@@ -83,7 +91,19 @@ var game = {
         if (this.state==="charSelect") {
             // Select this character as the player character
             // TODO: write code to store info of selected character as player
-            this.pcharSelected = true;
+            let id = clicked.children(".name").attr("value");
+            let playerChar = this.getCharFromID(id);
+
+            // Set player combat data from selection
+            this.playerCurrentAtk = this.playerBaseAtk = playerChar.atkPower;
+            this.playerHP = playerChar.hp;
+
+            console.log("Attack: "+this.playerCurrentAtk);
+            console.log("Increment: "+this.playerBaseAtk);
+            console.log("HP: "+this.playerHP);
+
+
+            // this.pcharSelected = true;
             this.state = "oppSelect";
 
             // Mark opponents and move to opponent select area
@@ -102,7 +122,7 @@ var game = {
                 console.log("You picked:");
                 console.log(clicked);
 
-                this.oppSelected = true;
+                // this.oppSelected = true;
                 this.state = "battleMode";
             }
         }
@@ -125,7 +145,15 @@ var game = {
             // if (opponentsRemaining) pick next opponent
             // else WIN GAME
         }
+    },
+
+    // Returns character object based on id string
+    getCharFromID(idStr) {
+        for (let i=0; i<this.characters.length; ++i) {
+            if (this.characters[i].id === idStr) return this.characters[i];
+        }
     }
+
 }
 
 $(document).ready( function() {
