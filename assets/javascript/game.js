@@ -87,11 +87,11 @@ var game = {
     // Handles clicks on character portraits
     charClicked(char) {
         let clicked = $(char);
+        let id = clicked.children(".name").attr("value");
             
         if (this.state==="charSelect") {
             // Select this character as the player character
             // TODO: write code to store info of selected character as player
-            let id = clicked.children(".name").attr("value");
             let playerChar = this.getCharFromID(id);
 
             // Set player combat data from selection
@@ -114,13 +114,17 @@ var game = {
         } else if(this.state==="oppSelect") {
             if ( clicked.hasClass("opponent") ) {
                 // Select this character as the opponent
+                let oppChar = this.getCharFromID(id);
+
+                // Set opponent combat data from selection
+                this.opponentCounterAtk = oppChar.counterPower;
+                this.opponentHP = oppChar.hp;
+
+                console.log("Attack: "+this.opponentCounterAtk);
+                console.log("HP: "+this.opponentHP);
 
                 // Pick as current opponent
                 $("#battleZone").append(clicked);
-
-                // TODO: write code to store info of selected character as opponent
-                console.log("You picked:");
-                console.log(clicked);
 
                 // this.oppSelected = true;
                 this.state = "battleMode";
