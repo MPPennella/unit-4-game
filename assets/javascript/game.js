@@ -37,6 +37,8 @@ var game = {
     ],
 
     // Properties to control states
+    // Possible values "charSelect", "oppSelect", "battleMode"
+    state: "",
 
     // Determines if player character and opponent character are selected
     pcharSelected: false,
@@ -44,6 +46,9 @@ var game = {
 
     // Code executed at launch - sets up initial game state
     startGame() {
+        // Set to "charSelect" state
+        this.state = "charSelect";
+
         // Create characters from data and display choices in #characterSelect zone
 
         for (let i=0; i<this.characters.length; ++i) {
@@ -75,17 +80,18 @@ var game = {
     charClicked(char) {
         let clicked = $(char);
             
-        if (!this.pcharSelected) {
+        if (this.state==="charSelect") {
             // Select this character as the player character
             // TODO: write code to store info of selected character as player
             this.pcharSelected = true;
+            this.state = "oppSelect";
 
             // Mark opponents and move to opponent select area
             let opponents = clicked.siblings();
             opponents.addClass("opponent");
             $("#opponentSelect").append(opponents);
             
-        } else if(!this.oppSelected) {
+        } else if(this.state==="oppSelect") {
             if ( clicked.hasClass("opponent") ) {
                 // Select this character as the opponent
 
@@ -95,13 +101,16 @@ var game = {
                 // TODO: write code to store info of selected character as opponent
                 console.log("You picked:");
                 console.log(clicked);
+
                 this.oppSelected = true;
+                this.state = "battleMode";
             }
         }
     },
 
+    // Handles clicks on #atkBtn
     attackClicked() {
-        if (this.oppSelected) {
+        if (this.state==="battleMode") {
             console.log("Attack");
 
             // Reduce character HP by opponent's counter value
@@ -112,8 +121,9 @@ var game = {
 
             // if (playerHP == 0) DEFEAT
 
-            // if (opponentHP == 0) Win Match -> pick next opponent
-            // if (noOpponentsRemaining) Win Game}
+            // if (opponentHP == 0) Win Match -> remove current opponent
+            // if (opponentsRemaining) pick next opponent
+            // else WIN GAME
         }
     }
 }
