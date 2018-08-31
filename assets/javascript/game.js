@@ -137,6 +137,8 @@ var game = {
 
             // Reduce opponent HP by character's current attack value
 
+            // Write damage done to #combatLog
+
             // Increase character's current attack by base attack value
 
             // if (playerHP == 0) DEFEAT
