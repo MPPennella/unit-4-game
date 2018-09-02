@@ -37,7 +37,7 @@ var game = {
     ],
 
     // Properties to control states
-    // Possible values "charSelect", "oppSelect", "battleMode"
+    // Possible values "charSelect", "oppSelect", "battleMode", "endOfGame"
     state: "",
 
     // Properties to store combat data
@@ -135,8 +135,6 @@ var game = {
     // Handles clicks on #atkBtn
     attackClicked() {
         if (this.state==="battleMode") {
-            //ISSUE: Allows additional clicks to resolve even after WIN/LOSS
-
             // Reduce character HP by opponent's counter value
             this.playerHP -= this.opponentCounterAtk;
             // Reduce opponent HP by character's current attack value
@@ -157,15 +155,31 @@ var game = {
             if (this.playerHP<=0) {
                 $("#combatLog").append("<div>You were defeated</div>");
                 console.log("DEFEAT");
+                
+                this.state = "endOfGame";
             }
             // else if (opponentHP == 0) Win Match -> remove current opponent
             else if (this.opponentHP<=0) {
+                // TODO: Remove defeated opponent's card
+
                 $("#combatLog").append("<div>You defeated "+"OPPONENT"+"</div>");
                 console.log("OPPONENT DEFEATED");
+
+                // if (opponentsRemaining) pick next opponent
+                if ( $("#opponentSelect").children().length > 0 ) {
+                    $("#combatLog").append("<div>Choose your next opponent</div>");
+                    console.log("PICK NEXT OPPONENT");
+
+                    this.state = "oppSelect"
+                } else { // else WIN GAME
+                    $("#combatLog").append("<div>You are the true master of the Dark Side!</div>");
+                    console.log("VICTORY");
+
+                    this.state = "endOfGame";
+                }
             }
 
-            // if (opponentsRemaining) pick next opponent
-            // else WIN GAME
+            
         }
     },
 
