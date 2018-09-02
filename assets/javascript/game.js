@@ -6,15 +6,15 @@ var game = {
             id: 'vader',
             name: 'Darth Vader',
             img: 'Darth_Vader.jpg',
-            atkPower: 20,
-            counterPower: 20,
-            hp: 100
+            atkPower: 15,
+            counterPower: 15,
+            hp: 200
         },
         {
             id: 'palpatine',
             name: 'Emperor Palpatine',
             img: 'Emperor_Palpatine.jpg',
-            atkPower: 20,
+            atkPower: 50,
             counterPower: 20,
             hp: 100
         },
@@ -22,17 +22,17 @@ var game = {
             id: 'maul',
             name: 'Darth Maul',
             img: 'Darth_Maul.jpg',
-            atkPower: 20,
+            atkPower: 30,
             counterPower: 20,
-            hp: 100
+            hp: 140
         },
         {
             id: 'revan',
             name: 'Darth Revan',
             img: 'Darth_Revan.jpg',
             atkPower: 20,
-            counterPower: 20,
-            hp: 100
+            counterPower: 30,
+            hp: 160
         }
     ],
 
