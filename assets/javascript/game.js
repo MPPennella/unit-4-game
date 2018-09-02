@@ -160,7 +160,7 @@ var game = {
             }
             // else if (opponentHP == 0) Win Match -> remove current opponent
             else if (this.opponentHP<=0) {
-                // TODO: Remove defeated opponent's card
+                $("#battleZone").empty();
 
                 $("#combatLog").append("<div>You defeated "+"OPPONENT"+"</div>");
                 console.log("OPPONENT DEFEATED");
