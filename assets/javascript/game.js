@@ -69,6 +69,24 @@ var game = {
         });
     },
 
+    // Ran at end of game, creates Reset button to begin game again
+    endGame() {
+        this.state = "endOfGame";
+        
+        var resetButton = $("<button>Reset</button>");
+        resetButton.on("click", function() {
+            $("#characterSelect").empty();
+            $("#opponentSelect").empty();
+            $("#battleZone").empty();
+            $("#combatLog").empty();
+
+            $(this).remove();
+
+            game.startGame();
+        });
+        resetButton.insertAfter($("#atkBtn"));
+    },
+
     // Creates a new character card with passed object info using JQuery and returns it
     createCharDiv(charObj) {
         var newChar = $("<div>");
@@ -156,7 +174,7 @@ var game = {
                 $("#combatLog").append("<div>You were defeated</div>");
                 console.log("DEFEAT");
                 
-                this.state = "endOfGame";
+                this.endGame();
             }
             // else if (opponentHP == 0) Win Match -> remove current opponent
             else if (this.opponentHP<=0) {
@@ -175,7 +193,7 @@ var game = {
                     $("#combatLog").append("<div>You are the true master of the Dark Side!</div>");
                     console.log("VICTORY");
 
-                    this.state = "endOfGame";
+                    this.endGame();
                 }
             }
 
