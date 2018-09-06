@@ -15,7 +15,7 @@ var game = {
             name: 'Emperor Palpatine',
             img: 'Emperor_Palpatine.jpg',
             atkPower: 50,
-            counterPower: 20,
+            counterPower: 30,
             hp: 100
         },
         {
@@ -105,7 +105,7 @@ var game = {
 
         newChar.append("<div class='name' value='"+charObj.id+"'>"+charObj.name+"</div>");
         newChar.append("<img src='assets/images/"+charObj.img+"' class='charCardImg'>");
-        newChar.append("<div>A: <span class='atk'>"+charObj.atkPower+"</span> C: "+charObj.counterPower+" HP: <span class='hp'>"+charObj.hp+"</span></div>")
+        newChar.append("<div>Atk: <span class='atk'>"+charObj.atkPower+"</span>&emsp;Ctr: "+charObj.counterPower+"&emsp;HP: <span class='hp'>"+charObj.hp+"</span></div>")
         newChar.on("click", function() {
             game.charClicked(this);
         });
