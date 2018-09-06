@@ -79,6 +79,13 @@ button {
     font-size: 18px;
 }
 
+.vs {
+    vertical-align: 90px;
+    padding: 0 20px;
+
+    font-size: 40px;
+}
+
 /* Copyright footer class */
 
 .copyrightInfo {
