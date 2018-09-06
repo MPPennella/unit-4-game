@@ -171,7 +171,8 @@ var game = {
             this.opponentHP -= this.playerCurrentAtk;
 
             // Write damage done to #combatLog
-            $("#combatLog").text("You attacked for "+this.playerCurrentAtk+" damage, "+"OPPONENT"+" attacked for "+this.opponentCounterAtk+" damage");
+            let oppName = $("#battleZone > .opponent > .name").text();
+            $("#combatLog").text("You attacked "+oppName+" for "+this.playerCurrentAtk+" damage, "+oppName+" attacked you for "+this.opponentCounterAtk+" damage");
 
             console.log("Damage dealt: "+this.playerCurrentAtk);
 
@@ -188,7 +189,7 @@ var game = {
 
             // if (playerHP == 0) DEFEAT
             if (this.playerHP<=0) {
-                $("#combatLog").append("<div>You were defeated</div>");
+                $("#combatLog").append("<div>You were defeated by "+oppName+"</div>");
                 console.log("DEFEAT");
                 
                 this.endGame();
@@ -197,21 +198,23 @@ var game = {
             else if (this.opponentHP<=0) {
                 $("#battleZone > .opponent").remove();
 
-                $("#combatLog").append("<div>You defeated "+"OPPONENT"+"</div>");
+                let winMsg = "You defeated "+oppName;
                 console.log("OPPONENT DEFEATED");
 
                 // if (opponentsRemaining) pick next opponent
                 if ( $("#opponentSelect").children().length > 0 ) {
-                    $("#combatLog").append("<div>Choose your next opponent</div>");
+                    winMsg += ", choose your next opponent";
                     console.log("PICK NEXT OPPONENT");
 
                     this.state = "oppSelect"
                 } else { // else WIN GAME
-                    $("#combatLog").append("<div>You are the true master of the Dark Side!</div>");
+                    winMsg += ", you are the true master of the Dark Side!";
                     console.log("VICTORY");
 
                     this.endGame();
                 }
+                $("#combatLog").append("<div>"+winMsg+"</div>");
+                
             }
 
             
