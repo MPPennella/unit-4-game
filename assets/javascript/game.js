@@ -58,11 +58,8 @@ var game = {
         this.state = "charSelect";
 
         // Create characters from data and display choices in #characterSelect zone
-
-        for (let i=0; i<this.characters.length; ++i) {
-            $("#characterSelect").append(this.createCharDiv(this.characters[i]));
-        }
-
+        this.setupCharCards();
+        
         // Attach listener to atkBtn
         $("#atkBtn").on("click", function() {
            game.attackClicked();
@@ -72,19 +69,33 @@ var game = {
     // Ran at end of game, creates Reset button to begin game again
     endGame() {
         this.state = "endOfGame";
-        
+
         var resetButton = $("<button>Reset</button>");
+
         resetButton.on("click", function() {
+            // Empty all game zones of any remaining content
             $("#characterSelect").empty();
             $("#opponentSelect").empty();
             $("#battleZone").empty();
             $("#combatLog").empty();
 
+            // Recreate character cards and set game to character selection
+            game.setupCharCards();
+            game.state = "charSelect";
+
+            // Remove reset button
             $(this).remove();
 
-            game.startGame();
         });
+
         resetButton.insertAfter($("#atkBtn"));
+    },
+
+    // Uses the data stored in characters array to populate #characterSelect with available character choices
+    setupCharCards() {
+        for (let i=0; i<this.characters.length; ++i) {
+            $("#characterSelect").append(this.createCharDiv(this.characters[i]));
+        }
     },
 
     // Creates a new character card with passed object info using JQuery and returns it
