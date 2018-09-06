@@ -49,8 +49,6 @@ var game = {
     opponentHP: null,
 
     // Determines if player character and opponent character are selected
-    // pcharSelected: false,
-    // oppSelected: false,
 
     // Code executed at launch - sets up initial game state
     startGame() {
@@ -120,7 +118,6 @@ var game = {
             
         if (this.state==="charSelect") {
             // Select this character as the player character
-            // TODO: write code to store info of selected character as player
             let playerChar = this.getCharFromID(id);
 
             // Set player combat data from selection
@@ -131,14 +128,18 @@ var game = {
             console.log("Increment: "+this.playerBaseAtk);
             console.log("HP: "+this.playerHP);
 
-
-            // this.pcharSelected = true;
-            this.state = "oppSelect";
-
             // Mark opponents and move to opponent select area
             let opponents = clicked.siblings();
             opponents.addClass("opponent");
             $("#opponentSelect").append(opponents);
+
+            // Add player class and move player card to battle zone:
+            clicked.addClass("player");
+            $("#battleZone").append(clicked);
+            let vsdiv = $("<span class='vs'>VS</span>");
+            $("#battleZone").append( vsdiv );
+
+            this.state = "oppSelect";
             
         } else if(this.state==="oppSelect") {
             if ( clicked.hasClass("opponent") ) {
@@ -181,8 +182,8 @@ var game = {
             this.playerCurrentAtk += this.playerBaseAtk;
 
             // Update character cards with new Atk and HP
-            $("#characterSelect > .charCard >> .atk").text(this.playerCurrentAtk);
-            $("#characterSelect > .charCard >> .hp").text(this.playerHP);
+            $("#battleZone > .player >> .atk").text(this.playerCurrentAtk);
+            $("#battleZone > .player >> .hp").text(this.playerHP);
             $("#battleZone > .opponent >> .hp").text(this.opponentHP);
 
             // if (playerHP == 0) DEFEAT
@@ -194,7 +195,7 @@ var game = {
             }
             // else if (opponentHP == 0) Win Match -> remove current opponent
             else if (this.opponentHP<=0) {
-                $("#battleZone").empty();
+                $("#battleZone > .opponent").remove();
 
                 $("#combatLog").append("<div>You defeated "+"OPPONENT"+"</div>");
                 console.log("OPPONENT DEFEATED");
