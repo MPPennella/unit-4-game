@@ -31,6 +31,8 @@ button {
 
     background-color: maroon;
     color: #ffffaa;
+
+    font-family: inherit;
 }
 
 .clickable {
