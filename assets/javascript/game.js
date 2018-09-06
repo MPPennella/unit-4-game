@@ -105,7 +105,7 @@ var game = {
 
         newChar.append("<div class='name' value='"+charObj.id+"'>"+charObj.name+"</div>");
         newChar.append("<img src='assets/images/"+charObj.img+"' class='charCardImg'>");
-        newChar.append("<div>A: "+charObj.atkPower+" C: "+charObj.counterPower+" HP: "+charObj.hp+"</div>")
+        newChar.append("<div>A: <span class='atk'>"+charObj.atkPower+"</span> C: "+charObj.counterPower+" HP: <span class='hp'>"+charObj.hp+"</span></div>")
         newChar.on("click", function() {
             game.charClicked(this);
         });
@@ -179,6 +179,11 @@ var game = {
 
             // Increase character's current attack by base attack value
             this.playerCurrentAtk += this.playerBaseAtk;
+
+            // Update character cards with new Atk and HP
+            $("#characterSelect > .charCard >> .atk").text(this.playerCurrentAtk);
+            $("#characterSelect > .charCard >> .hp").text(this.playerHP);
+            $("#battleZone > .opponent >> .hp").text(this.opponentHP);
 
             // if (playerHP == 0) DEFEAT
             if (this.playerHP<=0) {
