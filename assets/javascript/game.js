@@ -101,21 +101,28 @@ var game = {
         var newChar = $("<div>");
         newChar.addClass("charCard");
 
+        // Name class identifies which character by storing the ID in 'value'
         newChar.append("<div class='name' value='"+charObj.id+"'>"+charObj.name+"</div>");
+        // Portrait of character
         newChar.append("<img src='assets/images/"+charObj.img+"' class='charCardImg'>");
+        // Display combat parameters and allow referencing atk/hp values through classes
         newChar.append("<div>Atk: <span class='atk'>"+charObj.atkPower+"</span>&emsp;Ctr: "+charObj.counterPower+"&emsp;HP: <span class='hp'>"+charObj.hp+"</span></div>")
         newChar.on("click", function() {
             game.charClicked(this);
         });
 
+        // Return newly constructed character card
         return newChar;
     },
 
     // Handles clicks on character portraits
     charClicked(char) {
+        // Create variables for easy reference to clicked character and their ID
         let clicked = $(char);
         let id = clicked.children(".name").attr("value");
-            
+        
+        // Only do anything if state is "charSelect" or "oppSelect", otherwise ignore clicks
+        // In charSelect state, pick clicked character as player char
         if (this.state==="charSelect") {
             // Select this character as the player character
             let playerChar = this.getCharFromID(id);
@@ -124,23 +131,21 @@ var game = {
             this.playerCurrentAtk = this.playerBaseAtk = playerChar.atkPower;
             this.playerHP = playerChar.hp;
 
-            console.log("Attack: "+this.playerCurrentAtk);
-            console.log("Increment: "+this.playerBaseAtk);
-            console.log("HP: "+this.playerHP);
-
             // Mark opponents and move to opponent select area
             let opponents = clicked.siblings();
             opponents.addClass("opponent");
             $("#opponentSelect").append(opponents);
 
-            // Add player class and move player card to battle zone:
+            // Add player class to selected card and move card to battle zone:
             clicked.addClass("player");
             $("#battleZone").append(clicked);
-            let vsdiv = $("<span class='vs'>VS</span>");
-            $("#battleZone").append( vsdiv );
+            let vsdiv = $();
+            $("#battleZone").append( "<span class='vs'>VS</span>" );
 
+            // Move to next state
             this.state = "oppSelect";
             
+        // In oppSelect state, pick clicked char as opponent
         } else if(this.state==="oppSelect") {
             if ( clicked.hasClass("opponent") ) {
                 // Select this character as the opponent
@@ -150,13 +155,10 @@ var game = {
                 this.opponentCounterAtk = oppChar.counterPower;
                 this.opponentHP = oppChar.hp;
 
-                console.log("Attack: "+this.opponentCounterAtk);
-                console.log("HP: "+this.opponentHP);
-
                 // Pick as current opponent
                 $("#battleZone").append(clicked);
 
-                // this.oppSelected = true;
+                // Move to next state
                 this.state = "battleMode";
             }
         }
@@ -174,11 +176,6 @@ var game = {
             let oppName = $("#battleZone > .opponent > .name").text();
             $("#combatLog").text("You attacked "+oppName+" for "+this.playerCurrentAtk+" damage, "+oppName+" attacked you for "+this.opponentCounterAtk+" damage");
 
-            console.log("Damage dealt: "+this.playerCurrentAtk);
-
-            console.log("Player HP: "+this.playerHP);
-            console.log("Opponent HP: "+this.opponentHP);
-
             // Increase character's current attack by base attack value
             this.playerCurrentAtk += this.playerBaseAtk;
 
@@ -190,8 +187,8 @@ var game = {
             // if (playerHP == 0) DEFEAT
             if (this.playerHP<=0) {
                 $("#combatLog").append("<div>You were defeated by "+oppName+"</div>");
-                console.log("DEFEAT");
                 
+                // Go to final state
                 this.endGame();
             }
             // else if (opponentHP == 0) Win Match -> remove current opponent
@@ -199,24 +196,22 @@ var game = {
                 $("#battleZone > .opponent").remove();
 
                 let winMsg = "You defeated "+oppName;
-                console.log("OPPONENT DEFEATED");
 
                 // if (opponentsRemaining) pick next opponent
                 if ( $("#opponentSelect").children().length > 0 ) {
                     winMsg += ", choose your next opponent";
-                    console.log("PICK NEXT OPPONENT");
 
+                    // Allow next opponent to be selected
                     this.state = "oppSelect"
                 } else { // else WIN GAME
                     winMsg += ", you are the true master of the Dark Side!";
-                    console.log("VICTORY");
 
+                    // Go to final state
                     this.endGame();
                 }
                 $("#combatLog").append("<div>"+winMsg+"</div>");
                 
             }
-
             
         }
     },
@@ -230,6 +225,7 @@ var game = {
 
 }
 
+// Start the game once document is loaded
 $(document).ready( function() {
     game.startGame();
 });

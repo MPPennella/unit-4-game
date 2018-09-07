@@ -35,19 +35,12 @@ button {
     font-family: inherit;
 }
 
+/* For objects that are clickable - not currently applied */
 .clickable {
     cursor: pointer;
 }
 
-
-.gameArea {
-    width: 1000px;
-    margin: 0 auto;
-    padding: 10px;
-    overflow: hidden;
-    background-color: #000000dd;
-}
-
+/* Thematic text that doesn't relate to gameplay */
 .flavorText {
     padding: 10px;
     font-style: italic;
@@ -57,11 +50,23 @@ button {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Area upon which game will be played */
+.gameArea {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+    overflow: hidden;
+    background-color: #000000dd;
+}
+
+/* Text that provides gameplay information */
 .infoText {
     padding: 10px;
 }
 
 /* Classes controlling character card display */
+
+/* Main card style */
 .charCard {
     display: inline-block;
 
@@ -76,6 +81,7 @@ button {
     
 }
 
+/* Formatting for display of character images */
 .charCardImg {
     width: 170px;
 
@@ -84,10 +90,12 @@ button {
     border-radius: 2px;
 }
 
+/* Applied to character names in card */
 .name {
     font-size: 18px;
 }
 
+/* Applied to text separating opponents */
 .vs {
     vertical-align: 90px;
     padding: 0 20px;
@@ -96,7 +104,6 @@ button {
 }
 
 /* Copyright footer class */
-
 .copyrightInfo {
     flex-shrink: 0;
 
@@ -105,15 +112,8 @@ button {
     margin: 0;
     margin-top: 20px;
 
-    /* border-top-style: solid; */
-    /* border-color: #4aaaa5; */
-    /* border-top-width: 5px; */
-
     padding: 25px 0 10px;
-
-    /* background: #666666; */
 
     text-align: center;
     font-size: 10px;
-    /* color: white; */
 }
